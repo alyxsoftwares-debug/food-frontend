@@ -1,0 +1,331 @@
+/**
+ * @file globals.css
+ * @description Estilos globais e tokens de design do Food SaaS.
+ *
+ * Tokens definidos como CSS variables em HSL (sem o hsl() wrapper)
+ * para compatibilidade com o padrão shadcn/ui e Tailwind opacity modifier.
+ *
+ * Ex: bg-primary/50 → aplica 50% de opacidade na cor primária.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+   CSS VARIABLES — LIGHT MODE
+   ============================================================================= */
+
+@layer base {
+  :root {
+    /* Fundos */
+    --background      : 0 0% 99%;          /* Quase branco — menos cansativo que #FFF puro */
+    --foreground      : 222 47% 11%;       /* Slate 900 — texto principal */
+
+    /* Cards e superfícies */
+    --card            : 0 0% 100%;
+    --card-foreground : 222 47% 11%;
+
+    /* Popover */
+    --popover         : 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Cor primária — Laranja vibrante */
+    --primary         : 24 100% 50%;       /* #FF6600 */
+    --primary-foreground: 0 0% 100%;
+
+    /* Cor secundária — Slate frio */
+    --secondary       : 217 32% 17%;       /* Slate 800 */
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted — elementos de baixo destaque */
+    --muted           : 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent — hover states e destaques suaves */
+    --accent          : 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Destrutivo — erros e ações perigosas */
+    --destructive     : 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Bordas e inputs */
+    --border          : 214 32% 91%;
+    --input           : 214 32% 91%;
+    --ring            : 24 100% 50%;       /* Igual ao primary — foco */
+
+    /* Border radius global */
+    --radius          : 0.75rem;           /* 12px — moderno sem exagero */
+
+    /* Sidebar */
+    --sidebar-bg      : 222 47% 11%;       /* Slate 900 */
+    --sidebar-border  : 215 25% 20%;
+    --sidebar-text    : 213 31% 91%;
+    --sidebar-muted   : 215 20% 55%;
+    --sidebar-active  : 24 100% 50%;
+    --sidebar-hover   : 215 28% 17%;
+  }
+
+  /* =============================================================================
+     CSS VARIABLES — DARK MODE
+     ============================================================================= */
+
+  .dark {
+    --background      : 222 47% 7%;        /* Slate 950 — fundo ultra escuro */
+    --foreground      : 213 31% 91%;       /* Slate 200 */
+
+    --card            : 222 47% 11%;       /* Slate 900 */
+    --card-foreground : 213 31% 91%;
+
+    --popover         : 222 47% 11%;
+    --popover-foreground: 213 31% 91%;
+
+    --primary         : 24 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary       : 215 28% 17%;
+    --secondary-foreground: 213 31% 91%;
+
+    --muted           : 215 28% 17%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent          : 215 28% 17%;
+    --accent-foreground: 213 31% 91%;
+
+    --destructive     : 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border          : 215 25% 20%;
+    --input           : 215 25% 20%;
+    --ring            : 24 100% 50%;
+
+    --sidebar-bg      : 222 47% 5%;        /* Mais escuro que o background */
+    --sidebar-border  : 215 25% 12%;
+    --sidebar-text    : 213 31% 91%;
+    --sidebar-muted   : 215 20% 45%;
+    --sidebar-active  : 24 100% 50%;
+    --sidebar-hover   : 215 28% 13%;
+  }
+}
+
+/* =============================================================================
+   BASE STYLES
+   ============================================================================= */
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply scroll-smooth;
+    text-rendering   : optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Scrollbar customizada — sutil e elegante */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+    border: 2px solid transparent;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  /* Foco acessível — ring visível apenas via teclado */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Seleção de texto com cor da brand */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+/* =============================================================================
+   COMPONENTES UTILITÁRIOS
+   ============================================================================= */
+
+@layer components {
+  /* Skeleton loader — efeito shimmer */
+  .skeleton {
+    @apply rounded-md bg-muted;
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* Glassmorphism — cards com blur */
+  .glass {
+    @apply backdrop-blur-md bg-background/60 border border-border/50;
+  }
+
+  /* Gradiente da brand */
+  .gradient-brand {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(24 100% 60%) 100%
+    );
+  }
+
+  /* Gradiente de texto */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(24 100% 65%) 100%
+    );
+  }
+
+  /* Card hover com elevação */
+  .card-hover {
+    @apply transition-all duration-200 ease-smooth;
+    @apply hover:shadow-soft-md hover:-translate-y-0.5;
+  }
+
+  /* Sidebar link */
+  .sidebar-link {
+    @apply flex items-center gap-3 rounded-lg px-3 py-2.5;
+    @apply text-sm font-medium transition-all duration-150;
+    color: hsl(var(--sidebar-text));
+  }
+
+  .sidebar-link:hover {
+    background-color: hsl(var(--sidebar-hover));
+  }
+
+  .sidebar-link.active {
+    background-color: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+  }
+
+  /* Badge de status de pedido */
+  .order-status-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold;
+  }
+
+  /* Chip de tag */
+  .tag-chip {
+    @apply inline-flex items-center rounded-full px-2 py-0.5;
+    @apply text-xs font-medium bg-muted text-muted-foreground;
+  }
+
+  /* Linha de separação com label */
+  .divider-label {
+    @apply flex items-center gap-3 text-xs text-muted-foreground;
+  }
+
+  .divider-label::before,
+  .divider-label::after {
+    @apply flex-1 h-px bg-border;
+    content: '';
+  }
+
+  /* Indicador de status (bolinha colorida) */
+  .status-dot {
+    @apply relative inline-flex h-2 w-2 rounded-full;
+  }
+
+  .status-dot.pulse::before {
+    @apply absolute inset-0 rounded-full animate-ping opacity-75;
+    content: '';
+    background-color: inherit;
+  }
+}
+
+/* =============================================================================
+   UTILITÁRIOS CUSTOM
+   ============================================================================= */
+
+@layer utilities {
+  /* Truncate com múltiplas linhas */
+  .line-clamp-2 { -webkit-line-clamp: 2; }
+  .line-clamp-3 { -webkit-line-clamp: 3; }
+
+  /* Esconder scrollbar mas manter funcionalidade */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Prevent text selection */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Aspect ratios customizados */
+  .aspect-card  { aspect-ratio: 16 / 9; }
+  .aspect-thumb { aspect-ratio: 4 / 3; }
+  .aspect-menu  { aspect-ratio: 3 / 4; }
+
+  /* Transição padrão suave */
+  .transition-default {
+    @apply transition-all duration-200 ease-smooth;
+  }
+
+  /* Safe area padding para mobile (notch, home indicator) */
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+}
+
+/* =============================================================================
+   PRINT STYLES — Cupom fiscal e QR Codes
+   ============================================================================= */
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12px;
+  }
+
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+
+  .print-break-before { page-break-before: always; }
+  .print-break-after  { page-break-after: always; }
+
+  a::after { content: none !important; }
+}
