@@ -66,10 +66,15 @@ const nextConfig: NextConfig = {
   // O código é funcionalmente correto — os erros são apenas de strictness
   typescript: {
     ignoreBuildErrors: true,
+    tsconfigPath: './tsconfig.json',
   },
 
   eslint: {
     ignoreDuringBuilds: true,
+  },
+
+  experimental: {
+    typedRoutes: false,
   },
 
   compress    : false,
