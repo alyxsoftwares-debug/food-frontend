@@ -13,21 +13,19 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  // ---------------------------------------------------------------------------
-  // Content — arquivos escaneados para purge de classes não usadas
-  // ---------------------------------------------------------------------------
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-
-  // ---------------------------------------------------------------------------
-  // Dark Mode — via classe 'dark' no <html>
-  // ---------------------------------------------------------------------------
+  safelist: [
+    { pattern: /bg-.+/, variants: ['hover', 'focus'] },
+    { pattern: /text-.+/, variants: ['hover', 'focus'] },
+    { pattern: /border-.+/, variants: ['hover', 'focus'] },
+    { pattern: /ring-.+/, variants: ['focus', 'focus-visible'] },
+  ],
   darkMode: ['class'],
-
   theme: {
     // -------------------------------------------------------------------------
     // Container — centralizado com padding responsivo
