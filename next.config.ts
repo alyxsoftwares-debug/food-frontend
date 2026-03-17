@@ -6,7 +6,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
 
   images: {
     remotePatterns: [
@@ -49,32 +49,14 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  webpack(config, { isServer }) {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs    : false,
-        net   : false,
-        tls   : false,
-        crypto: false,
-      };
-    }
-    return config;
-  },
-
   // Não bloqueia o build por erros de TypeScript ou ESLint
   // O código é funcionalmente correto — os erros são apenas de strictness
   typescript: {
     ignoreBuildErrors: true,
-    tsconfigPath: './tsconfig.json',
   },
 
   eslint: {
     ignoreDuringBuilds: true,
-  },
-
-  experimental: {
-    typedRoutes: false,
   },
 
   compress    : false,

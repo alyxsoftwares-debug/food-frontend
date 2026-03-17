@@ -19,12 +19,6 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  safelist: [
-    { pattern: /bg-.+/, variants: ['hover', 'focus'] },
-    { pattern: /text-.+/, variants: ['hover', 'focus'] },
-    { pattern: /border-.+/, variants: ['hover', 'focus'] },
-    { pattern: /ring-.+/, variants: ['focus', 'focus-visible'] },
-  ],
   darkMode: ['class'],
   theme: {
     // -------------------------------------------------------------------------
