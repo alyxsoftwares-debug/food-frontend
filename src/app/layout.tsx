@@ -8,12 +8,13 @@
  * @module app/layout
  */
 
+import './globals.css'; // Deve ser o primeiro import absoluto!
+
 import type { Metadata, Viewport } from 'next';
 import { Inter }                   from 'next/font/google';
 import { ThemeProvider }           from '@/components/providers/theme-provider';
 import { QueryProvider }           from '@/components/providers/query-provider';
 import { AuthProvider }            from '@/components/providers/auth-provider';
-import '@/app/globals.css';
 
 // ---------------------------------------------------------------------------
 // Fontes
