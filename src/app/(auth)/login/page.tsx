@@ -118,7 +118,7 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const response = await apiPost<LoginResponse>('/login', data);
+      const response = await apiPost<LoginResponse>('/auth/login', data);
 
       setSession({
         accessToken : response.accessToken,
