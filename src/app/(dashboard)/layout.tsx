@@ -169,14 +169,14 @@ function Sidebar({ collapsed, onCollapse }: SidebarProps) {
             return (
               <li key={item.href}>
                 {/* Item principal */}
-                <button
+                <div
                   onClick={() => {
                     if (hasChild && !collapsed) {
                       setExpanded(open ? null : item.href);
                     }
                   }}
                   className={cn(
-                    'sidebar-link w-full',
+                    'sidebar-link w-full flex items-center cursor-pointer select-none',
                     active && 'active',
                     collapsed && 'justify-center px-2',
                   )}
@@ -184,7 +184,7 @@ function Sidebar({ collapsed, onCollapse }: SidebarProps) {
                 >
                   {hasChild && !collapsed
                     ? (
-                      <Link href={item.href} className="flex items-center gap-3 flex-1" onClick={(e) => e.stopPropagation()}>
+                      <Link href={item.href} className="flex items-center gap-3 flex-1">
                         <item.icon className="h-4 w-4 shrink-0" strokeWidth={1.5} />
                         {!collapsed && <span className="flex-1 text-left">{item.label}</span>}
                       </Link>
@@ -355,7 +355,7 @@ function Header({ onMenuToggle }: { onMenuToggle: () => void }) {
         {/* Cardápio público */}
         {company?.slug && (
           <a
-            href={`${process.env.NEXT_PUBLIC_MENU_BASE_URL}/${company.slug}`}
+            href={`/menu/${company.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-border hover:text-foreground transition-all duration-150 sm:flex"
