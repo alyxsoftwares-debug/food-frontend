@@ -47,58 +47,58 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Pedidos',
-    href : '/dashboard/orders',
+    href : '/orders',
     icon : ShoppingBag,
   },
   {
     label: 'Cardápio',
-    href : '/dashboard/menu',
+    href : '/menu',
     icon : UtensilsCrossed,
     roles: ['owner', 'admin', 'manager'],
     children: [
-      { label: 'Produtos',   href: '/dashboard/menu/products',   icon: UtensilsCrossed },
-      { label: 'Categorias', href: '/dashboard/menu/categories', icon: Grid2X2 },
-      { label: 'Adicionais', href: '/dashboard/menu/additionals',icon: ChefHat },
+      { label: 'Produtos',   href: '/menu/products',   icon: UtensilsCrossed },
+      { label: 'Categorias', href: '/menu/categories', icon: Grid2X2 },
+      { label: 'Adicionais', href: '/menu/additionals',icon: ChefHat },
     ],
   },
   {
     label: 'Mesas',
-    href : '/dashboard/tables',
+    href : '/tables',
     icon : Grid2X2,
   },
   {
     label: 'Clientes',
-    href : '/dashboard/customers',
+    href : '/customers',
     icon : Users,
     roles: ['owner', 'admin', 'manager', 'cashier'],
   },
   {
     label: 'Entregas',
-    href : '/dashboard/delivery',
+    href : '/delivery',
     icon : Truck,
     roles: ['owner', 'admin', 'manager'],
   },
   {
     label: 'Relatórios',
-    href : '/dashboard/reports',
+    href : '/reports',
     icon : BarChart3,
     roles: ['owner', 'admin', 'manager'],
   },
   {
     label: 'Impressoras',
-    href : '/dashboard/printers',
+    href : '/printers',
     icon : Printer,
     roles: ['owner', 'admin', 'manager'],
   },
   {
     label: 'Usuários',
-    href : '/dashboard/users',
+    href : '/users',
     icon : Building2,
     roles: ['owner', 'admin'],
   },
   {
     label: 'Configurações',
-    href : '/dashboard/settings',
+    href : '/settings',
     icon : Settings,
     roles: ['owner', 'admin'],
   },
@@ -169,14 +169,14 @@ function Sidebar({ collapsed, onCollapse }: SidebarProps) {
             return (
               <li key={item.href}>
                 {/* Item principal */}
-                <div
+                <button
                   onClick={() => {
                     if (hasChild && !collapsed) {
                       setExpanded(open ? null : item.href);
                     }
                   }}
                   className={cn(
-                    'sidebar-link w-full flex items-center cursor-pointer select-none',
+                    'sidebar-link w-full',
                     active && 'active',
                     collapsed && 'justify-center px-2',
                   )}
@@ -184,7 +184,7 @@ function Sidebar({ collapsed, onCollapse }: SidebarProps) {
                 >
                   {hasChild && !collapsed
                     ? (
-                      <Link href={item.href} className="flex items-center gap-3 flex-1">
+                      <Link href={item.href} className="flex items-center gap-3 flex-1" onClick={(e) => e.stopPropagation()}>
                         <item.icon className="h-4 w-4 shrink-0" strokeWidth={1.5} />
                         {!collapsed && <span className="flex-1 text-left">{item.label}</span>}
                       </Link>
@@ -355,7 +355,7 @@ function Header({ onMenuToggle }: { onMenuToggle: () => void }) {
         {/* Cardápio público */}
         {company?.slug && (
           <a
-            href={`/menu/${company.slug}`}
+            href={`${process.env.NEXT_PUBLIC_MENU_BASE_URL}/${company.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:border-border hover:text-foreground transition-all duration-150 sm:flex"
