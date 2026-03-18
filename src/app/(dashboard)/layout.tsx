@@ -52,7 +52,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Cardápio',
-    href : '/menu',
+    href : '/menu/products',
     icon : UtensilsCrossed,
     roles: ['owner', 'admin', 'manager'],
     children: [

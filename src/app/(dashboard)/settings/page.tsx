@@ -211,7 +211,7 @@ export default function SettingsPage() {
 
   const copySlugUrl = () => {
     if (!company) return;
-    const url = `${process.env.NEXT_PUBLIC_MENU_BASE_URL ?? ''}/${company.slug}`;
+    const url = `${window.location.origin}/menu/${company.slug}`;
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -226,7 +226,7 @@ export default function SettingsPage() {
     );
   }
 
-  const menuUrl = `${process.env.NEXT_PUBLIC_MENU_BASE_URL ?? ''}/${company?.slug}`;
+  const menuUrl = typeof window !== 'undefined' ? `${window.location.origin}/menu/${company?.slug}` : `/menu/${company?.slug}`;
 
   // ---------------------------------------------------------------------------
   // Render
